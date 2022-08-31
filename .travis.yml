@@ -1,0 +1,14 @@
+# project development build
+language: node.js
+node_js:
+  - 16
+
+# docker build - to automate docker image build
+services:
+  - docker
+
+before_install: # predeployment / pre-staging
+  - docker build -t yimlingloo/reactappp3 -f Dockerfile.dev
+
+script: # deployment / staging
+  - docker run yimlingloo/reactappp3 npm run test -- --coverage
